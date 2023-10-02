@@ -1,32 +1,6 @@
-package main
+package orderbook
 
-import (
-	"fmt"
-	"time"
-
-	"github.com/google/uuid"
-)
-
-type Order struct {
-	Id        string
-	Size      float64
-	Bid       bool
-	Limit     *Limit
-	Timestamp int64
-}
-
-func NewOrder(size float64, bid bool) *Order {
-	return &Order{
-		Id:        uuid.New().String(),
-		Size:      size,
-		Bid:       bid,
-		Timestamp: time.Now().UnixNano(),
-	}
-}
-
-func (o *Order) String() string {
-	return fmt.Sprintf("[size: %.2f]", o.Size)
-}
+import "fmt"
 
 type Limit struct {
 	Price       float64
@@ -39,6 +13,10 @@ func NewLimit(price float64) *Limit {
 		Price:  price,
 		Orders: map[string]*Order{},
 	}
+}
+
+func (l *Limit) String() string {
+	return fmt.Sprintf("[price: %.2f | volume: %.2f]", l.Price, l.TotalVolume)
 }
 
 func (l *Limit) AddOrder(o *Order) {
@@ -58,9 +36,4 @@ func (l *Limit) DeleteOrder(o *Order) error {
 	o.Limit = nil
 
 	return nil
-}
-
-type OrderBook struct {
-	Asks []*Limit
-	Bids []*Limit
 }

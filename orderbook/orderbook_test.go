@@ -1,4 +1,4 @@
-package main
+package orderbook
 
 import "testing"
 
@@ -16,6 +16,20 @@ func TestLimit(t *testing.T) {
 
 	if l.TotalVolume != 6 {
 		t.Error("Invalid total volume")
+	}
+
+}
+
+func TestOrderBook(t *testing.T) {
+	ob := NewOrderBook()
+
+	buyOrderA := NewOrder(10, true)
+	buyOrderB := NewOrder(2000, true)
+	ob.PlaceOrder(15_000, buyOrderA)
+	ob.PlaceOrder(18_000, buyOrderB)
+
+	if len(ob.Bids) != 2 {
+		t.Errorf("Invalid bids length: %d", len(ob.Bids))
 	}
 
 }
