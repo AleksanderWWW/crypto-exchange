@@ -1,6 +1,9 @@
 package orderbook
 
-import "fmt"
+import (
+	"fmt"
+	"sort"
+)
 
 type Limit struct {
 	Price       float64
@@ -36,4 +39,19 @@ func (l *Limit) DeleteOrder(o *Order) error {
 	o.Limit = nil
 
 	return nil
+}
+
+func (l *Limit) SortedOrders() []*Order {
+	// Gather all orders into a slice
+	orderSlice := make([]*Order, len(l.Orders))
+	for _, val := range l.Orders {
+		orderSlice = append(orderSlice, val)
+	} 
+	
+	// Sort the slice by timestamp
+	sort.Slice(orderSlice, func (i, j int) bool {
+		return orderSlice[i].Timestamp < orderSlice[j].Timestamp
+	})
+
+	return orderSlice
 }
