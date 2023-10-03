@@ -24,15 +24,7 @@ func NewOrderBook() *OrderBook {
 	}
 }
 
-func (ob *OrderBook) PlaceOrder(price float64, o *Order) []Match {
-	if o.Size > 0.0 {
-		ob.add(price, o)
-	}
-
-	return []Match{}
-}
-
-func (ob *OrderBook) add(price float64, o *Order) {
+func (ob *OrderBook) PlaceLimitOrder(price float64, o *Order) {
 	var limit *Limit
 	var ok bool
 

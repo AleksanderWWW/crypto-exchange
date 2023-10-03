@@ -48,9 +48,9 @@ func (l *Limit) SortedOrders() []*Order {
 	for _, val := range l.Orders {
 		orderSlice[i] = val
 		i++
-	} 
+	}
 	// Sort the slice by timestamp
-	sort.SliceStable(orderSlice, func (i, j int) bool {
+	sort.SliceStable(orderSlice, func(i, j int) bool {
 		return orderSlice[i].Timestamp < orderSlice[j].Timestamp
 	})
 

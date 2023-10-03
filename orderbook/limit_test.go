@@ -20,7 +20,6 @@ func TestLimit(t *testing.T) {
 	if l.TotalVolume != 6 {
 		t.Error("Invalid total volume")
 	}
-
 	sortedOrders := l.SortedOrders()
 	if !reflect.DeepEqual(sortedOrders, []*Order{buyOrderA, buyOrderC}) {
 		t.Error("Sorting did not produce expected result")
