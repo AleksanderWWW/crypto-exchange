@@ -25,5 +25,5 @@ func NewOrder(size float64, bid bool) *Order {
 }
 
 func (o *Order) String() string {
-	return fmt.Sprintf("[size: %.2f]", o.Size)
+	return fmt.Sprintf("[size: %.2f | timestamp: %d]", o.Size, o.Timestamp)
 }

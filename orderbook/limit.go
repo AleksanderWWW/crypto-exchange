@@ -44,12 +44,13 @@ func (l *Limit) DeleteOrder(o *Order) error {
 func (l *Limit) SortedOrders() []*Order {
 	// Gather all orders into a slice
 	orderSlice := make([]*Order, len(l.Orders))
+	i := 0
 	for _, val := range l.Orders {
-		orderSlice = append(orderSlice, val)
+		orderSlice[i] = val
+		i++
 	} 
-	
 	// Sort the slice by timestamp
-	sort.Slice(orderSlice, func (i, j int) bool {
+	sort.SliceStable(orderSlice, func (i, j int) bool {
 		return orderSlice[i].Timestamp < orderSlice[j].Timestamp
 	})
 
